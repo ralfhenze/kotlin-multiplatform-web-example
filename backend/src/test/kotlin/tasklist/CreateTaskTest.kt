@@ -4,25 +4,17 @@ import kong.unirest.HeaderNames.CONTENT_TYPE
 import kong.unirest.Unirest
 import net.javacrumbs.jsonunit.assertj.assertThatJson
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import tasklist.util.BackendApiTest
 
 @DisplayName("POST /api/task")
-class CreateTaskTest {
-
-    companion object {
-        @BeforeAll
-        @JvmStatic
-        fun startBackend() {
-            main()
-        }
-    }
+class CreateTaskTest : BackendApiTest() {
 
     @Test
     fun `returns 201 - Created and the created task with an ID`() {
         val response = Unirest
-            .post("http://localhost:7070/api/task")
+            .post("$BACKEND_URL/api/task")
             .body("""
                 {
                     "state": "TODO",
@@ -45,7 +37,7 @@ class CreateTaskTest {
     @Test
     fun `returns 400 - Bad Request when received no JSON-object of TaskSchema`() {
         val response = Unirest
-            .post("http://localhost:7070/api/task")
+            .post("$BACKEND_URL/api/task")
             .body("""
                 {
                     "someUnexpectedProperty": 1
