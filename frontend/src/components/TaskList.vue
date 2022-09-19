@@ -12,9 +12,23 @@ export default defineComponent({
         }
     },
     mounted() {
-        taskRepo.getAllTasks().then(tasks => {
-            this.tasks = tasks
-        })
+        this.loadAllTasks()
+    },
+    methods: {
+
+        onDeleteClick(taskId: number) {
+            taskRepo
+                .deleteTask(taskId)
+                .then(_ => {
+                    this.loadAllTasks()
+                })
+        },
+
+        loadAllTasks() {
+            taskRepo.getAllTasks().then(tasks => {
+                this.tasks = tasks
+            })
+        },
     }
 })
 </script>
@@ -23,6 +37,7 @@ export default defineComponent({
     <h2>My tasks</h2>
     <ul>
         <li v-for="task in tasks">
+            <button class="delete" @click="onDeleteClick(task.id)">Delete</button>
             <div class="state">{{task.state}}</div>
             <div>{{task.description}}</div>
             <div class="clear"></div>

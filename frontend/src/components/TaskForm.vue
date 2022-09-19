@@ -15,7 +15,7 @@ export default defineComponent({
     methods: {
         onCreateTaskFormSubmit(event: Event) {
 
-            taskRepo.createTask(new Task(this.state, this.description))
+            taskRepo.createTask(new Task(null, this.state, this.description))
 
             event.preventDefault()
         }

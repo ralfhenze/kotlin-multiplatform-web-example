@@ -18,4 +18,13 @@ export default class TaskRepository {
                 return response.data
             })
     }
+
+    async deleteTask(taskId: number): Promise<boolean> {
+        return await axios
+            .delete("http://localhost:7070/api/task/" + taskId)
+            .then(response => {
+                console.log(response)
+                return true
+            })
+    }
 }
