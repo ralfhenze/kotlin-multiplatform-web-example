@@ -13,7 +13,9 @@ class TasklistBackendApp {
     private val tasks = mutableMapOf<TaskId, Task>()
 
     fun run() {
-        val app = Javalin.create().start(7070)
+        val app = Javalin.create { config ->
+            config.enableCorsForAllOrigins()
+        }.start(7070)
 
         app.exception(Exception::class.java) { _, ctx ->
             ctx.status(400)
