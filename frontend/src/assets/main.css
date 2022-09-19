@@ -42,3 +42,24 @@ input {
     border: 1px solid darkgreen;
     border-radius: 4px;
 }
+
+ul {
+    padding: 0;
+}
+
+li {
+    list-style: none;
+    background-color: #EFEFEF;
+    margin: 0 0 0.4em;
+    display: block;
+    padding: 1em 2em;
+}
+
+li .state {
+    float: right;
+    font-weight: bold;
+}
+
+.clear {
+    clear: both;
+}

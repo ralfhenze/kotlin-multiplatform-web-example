@@ -1,6 +1,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import TaskRepository from "@/repositories/TaskRepository";
+import Task from "@/types/Task";
+
+let taskRepo = new TaskRepository()
 
 export default defineComponent({
     data() {
@@ -11,9 +14,8 @@ export default defineComponent({
     },
     methods: {
         onCreateTaskFormSubmit(event: Event) {
-            let taskRepo = new TaskRepository()
 
-            taskRepo.createTask(this.state, this.description)
+            taskRepo.createTask(new Task(this.state, this.description))
 
             event.preventDefault()
         }
@@ -22,6 +24,7 @@ export default defineComponent({
 </script>
 
 <template>
+    <h2>Create a new task</h2>
     <form @submit="onCreateTaskFormSubmit">
         <div>
             <label>State</label>

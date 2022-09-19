@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import TaskForm from "@/components/TaskForm.vue";
+import TaskList from "@/components/TaskList.vue";
 </script>
 
 <template>
@@ -8,6 +9,6 @@ import TaskForm from "@/components/TaskForm.vue";
         This is a very simple web application to demonstrate code sharing between backend
         and frontend with Kotlin Multiplatform.
     </p>
-    <h2>Create a new task</h2>
+    <TaskList />
     <TaskForm />
 </template>
