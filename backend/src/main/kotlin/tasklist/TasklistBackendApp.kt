@@ -39,6 +39,25 @@ class TasklistBackendApp {
         app.get("/api/task") { ctx ->
             ctx.json(tasks.values.map { taskToSchema(it) })
         }
+
+        app.delete("/api/task/{taskId}") { ctx ->
+            val taskIdString = ctx.pathParam("taskId")
+            val taskIdInt = taskIdString.toIntOrNull()
+
+            if (taskIdInt != null) {
+                val taskId = TaskId(taskIdInt)
+                if (tasks.containsKey(taskId)) {
+                    tasks.remove(TaskId(taskIdInt))
+                    ctx.status(200)
+                } else {
+                    ctx.status(404)
+                    ctx.result("Task $taskIdString doesn't exist")
+                }
+            } else {
+                ctx.status(400)
+                ctx.result("Task ID in path must be an integer, but was \"$taskIdString\"")
+            }
+        }
     }
 
     fun reset() {
