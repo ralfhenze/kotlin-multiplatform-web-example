@@ -1,7 +1,6 @@
 import {tasklist} from "shared"
 import EnUsLocale = tasklist.i18n.EnUsLocale
 import TaskState = tasklist.domain.TaskState
-import Task from "../types/Task"
 import TaskList from "./TaskList"
 import TaskRepository from "../repositories/TaskRepository"
 
@@ -35,7 +34,7 @@ export default class TaskForm {
         const description = (document.getElementById("description") as HTMLFormElement).value
 
         self.taskRepo
-            .createTask(new Task(null, state, description))
+            .createTask({id: null, state: state, description: description})
             .then(_ => {
                 self.taskList.refresh()
                 self.reset()

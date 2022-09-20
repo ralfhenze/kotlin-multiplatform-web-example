@@ -4,7 +4,7 @@ import io.javalin.Javalin
 import tasklist.domain.Task
 import tasklist.domain.TaskDescription
 import tasklist.domain.TaskId
-import tasklist.web.TaskSchema
+import tasklist.schema.TaskSchema
 import java.lang.Exception
 
 class TasklistBackendApp {
@@ -15,10 +15,12 @@ class TasklistBackendApp {
     fun run() {
         val app = Javalin.create { config ->
             config.enableCorsForAllOrigins()
+            config.enableDevLogging()
         }.start(7070)
 
-        app.exception(Exception::class.java) { _, ctx ->
+        app.exception(Exception::class.java) { ex, ctx ->
             ctx.status(400)
+            ctx.result(ex.message ?: "")
         }
 
         app.post("/api/task") { ctx ->

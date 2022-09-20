@@ -46,6 +46,5 @@ class CreateTaskTest : BackendApiTest() {
             .asString()
 
         assertThat(response.status).isEqualTo(400)
-        assertThat(response.body).isEmpty()
     }
 }
