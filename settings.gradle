@@ -2,3 +2,4 @@
 rootProject.name = 'kotlin-multiplatform-web-example'
 
 include 'backend'
+include 'shared'

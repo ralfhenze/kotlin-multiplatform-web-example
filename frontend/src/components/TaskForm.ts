@@ -1,3 +1,6 @@
+import {tasklist} from "shared"
+import EnUsLocale = tasklist.i18n.EnUsLocale
+import TaskState = tasklist.domain.TaskState
 import Task from "../types/Task"
 import TaskList from "./TaskList"
 import TaskRepository from "../repositories/TaskRepository"
@@ -20,7 +23,7 @@ export default class TaskForm {
     }
 
     reset() {
-        (document.getElementById("state") as HTMLFormElement).value = "TODO";
+        (document.getElementById("state") as HTMLFormElement).value = TaskState.TODO.name;
         (document.getElementById("description") as HTMLFormElement).value = "";
     }
 
@@ -39,15 +42,17 @@ export default class TaskForm {
     }
 
     getHtml(): string {
+        const locale = new EnUsLocale()
+
         return `
             <h2>Create a new task</h2>
             <form id="create-task-form">
                 <div>
                     <label>State</label>
-                    <select id="state" name="state">
-                        <option value="TODO">TODO</option>
-                        <option value="IN_PROGRESS">IN PROGRESS</option>
-                        <option value="DONE">DONE</option>
+                    <select id="state" name="state">` +
+                        TaskState.values()
+                            .map(it => `<option value="` + it.name + `">` + locale.getTaskStateLabel(it) + `</option>`)
+                            .join("\n") + `
                     </select>
                 </div>
 

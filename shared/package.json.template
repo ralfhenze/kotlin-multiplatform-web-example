@@ -1,0 +1,14 @@
+{
+    "name": "shared",
+    "version": "0.0.0",
+    "main": "kotlin/shared.js",
+    "types": "kotlin/shared.d.ts",
+    "private": true,
+    "devDependencies": {
+        "source-map-support": "0.5.21"
+    },
+    "dependencies": {
+        "kotlin": "^1.7.10",
+        "kotlin-test": "^1.7.10"
+    }
+}

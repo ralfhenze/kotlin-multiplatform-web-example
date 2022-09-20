@@ -1,0 +1,90 @@
+plugins {
+    id 'org.jetbrains.kotlin.multiplatform' version '1.7.10'
+    id 'com.github.node-gradle.node' version '2.2.4'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven {
+        url 'https://dl.bintray.com/kotlin/kotlinx'
+    }
+    maven {
+        url 'https://dl.bintray.com/kotlin/kotlin-js-wrappers'
+    }
+}
+
+kotlin {
+    targets {
+        all {
+            compilations.all {
+                kotlinOptions {
+//                    allWarningsAsErrors = true
+                    freeCompilerArgs += '-Xopt-in=kotlin.js.ExperimentalJsExport'
+                }
+            }
+        }
+    }
+
+    jvm {
+        compilations.main.kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+        withJava()
+    }
+
+    js(IR) {
+        moduleName = 'shared'
+
+        nodejs {}
+        binaries.executable()
+    }
+
+    sourceSets {
+
+        // ------------------- Compiled to JVM and JavaScript -------------------
+        commonMain {
+            dependencies {
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation kotlin('test-common')
+                implementation kotlin('test-annotations-common')
+            }
+        }
+
+        // ------------------- JVM only -------------------
+        jvmMain {
+        }
+        jvmTest {
+            dependencies {
+                implementation kotlin('test-junit')
+            }
+        }
+
+        // ------------------- JavaScript only -------------------
+        jsMain {
+        }
+        jsTest {
+            dependencies {
+                implementation kotlin('test-js')
+            }
+        }
+    }
+}
+
+node {
+    download = true
+}
+
+// FIXME: remove this as soon Kotlin Multiplatform adds "types" to package.json
+clean {
+    delete '../build/js/packages/shared/package.json'
+}
+
+assemble.doLast {
+    copy {
+        from 'package.json.template'
+        into '../build/js/packages/shared'
+        rename '(.+).template', '$1'
+    }
+}
