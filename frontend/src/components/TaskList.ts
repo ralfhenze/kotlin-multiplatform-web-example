@@ -1,3 +1,6 @@
+import {tasklist} from "shared"
+import EnUsLocale = tasklist.i18n.EnUsLocale
+import TaskState = tasklist.domain.TaskState
 import TaskRepository from "../repositories/TaskRepository"
 import Task from "../types/Task"
 
@@ -5,6 +8,7 @@ export default class TaskList {
 
     constructor(
         private taskRepo: TaskRepository,
+        private locale: EnUsLocale,
     ) {}
 
     init() {
@@ -25,7 +29,7 @@ export default class TaskList {
 
                 Array.from(deleteButtons).forEach(deleteButton => {
                     const id = parseInt(deleteButton.getAttribute("data-id"))
-                    deleteButton.addEventListener("click", event => {
+                    deleteButton.addEventListener("click", _ => {
                         this.onDeleteClick(id)
                     })
                 })
@@ -52,10 +56,12 @@ export default class TaskList {
         let html = ""
 
         for (const task of tasks) {
+            const state = this.locale.getTaskStateLabel(TaskState.valueOf(task.state))
+
             html += `
                 <li>
                     <button class="delete" data-id="` + task.id + `">Delete</button>
-                    <div class="state">` + task.state + `</div>
+                    <div class="state">` + state + `</div>
                     <div>` + task.description + `</div>
                     <div class="clear"></div>
                 </li>`

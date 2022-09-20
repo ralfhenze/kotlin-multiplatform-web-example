@@ -10,6 +10,7 @@ export default class TaskForm {
     constructor(
         private taskList: TaskList,
         private taskRepo: TaskRepository,
+        private locale: EnUsLocale,
     ) {}
 
     init() {
@@ -42,8 +43,6 @@ export default class TaskForm {
     }
 
     getHtml(): string {
-        const locale = new EnUsLocale()
-
         return `
             <h2>Create a new task</h2>
             <form id="create-task-form">
@@ -51,7 +50,7 @@ export default class TaskForm {
                     <label>State</label>
                     <select id="state" name="state">` +
                         TaskState.values()
-                            .map(it => `<option value="` + it.name + `">` + locale.getTaskStateLabel(it) + `</option>`)
+                            .map(it => `<option value="` + it.name + `">` + this.locale.getTaskStateLabel(it) + `</option>`)
                             .join("\n") + `
                     </select>
                 </div>
