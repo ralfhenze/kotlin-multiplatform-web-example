@@ -68,3 +68,13 @@ li .state {
     float: right;
     margin-left: 1em;
 }
+
+.error {
+    border: 2px solid red;
+}
+
+.error-message {
+    margin-top: 0.2em;
+    color: red;
+    font-weight: bold;
+}

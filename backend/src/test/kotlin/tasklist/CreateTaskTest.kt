@@ -35,6 +35,22 @@ class CreateTaskTest : BackendApiTest() {
     }
 
     @Test
+    fun `returns 400 - Bad Request when description contains only whitespace characters`() {
+        val response = Unirest
+            .post("$BACKEND_URL/api/task")
+            .body("""
+                {
+                    "state": "TODO",
+                    "description": "   "
+                }
+            """)
+            .asString()
+
+        assertThat(response.status).isEqualTo(400)
+        assertThat(response.body).isEqualTo("Please provide a description")
+    }
+
+    @Test
     fun `returns 400 - Bad Request when received no JSON-object of TaskSchema`() {
         val response = Unirest
             .post("$BACKEND_URL/api/task")
