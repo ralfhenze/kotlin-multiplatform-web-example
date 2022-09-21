@@ -32,22 +32,25 @@ export default class TaskForm {
     onSubmit(event: Event, self: TaskForm) {
         event.preventDefault()
 
-        const descriptionTextarea = (document.getElementById("description") as HTMLFormElement)
+        const createTaskForm = document.getElementById("create-task-form")
+        const descriptionInput = (document.getElementById("description") as HTMLFormElement)
 
-        descriptionTextarea.className = ""
+        createTaskForm.className = ""
+        descriptionInput.className = ""
         document.getElementById("error-message")?.remove()
 
         const state = (document.getElementById("state") as HTMLFormElement).value
-        const description = descriptionTextarea.value
+        const description = descriptionInput.value
 
         const errorMessage = self.validator.getDescriptionErrorMessage(description)
 
         if (errorMessage) {
-            descriptionTextarea.className = "error"
-            descriptionTextarea.insertAdjacentHTML(
+            descriptionInput.className = "error"
+            descriptionInput.insertAdjacentHTML(
                 "afterend",
                 "<p id=\"error-message\" class=\"error-message\">" + errorMessage + "</p>"
             )
+            createTaskForm.className = "has-error"
             return
         }
 
@@ -61,25 +64,22 @@ export default class TaskForm {
 
     getHtml(): string {
         return `
-            <h2>Create a new task</h2>
-            <form id="create-task-form">
-                <div>
-                    <label>State</label>
-                    <select id="state" name="state">` +
-                        TaskState.values()
-                            .map(it => `<option value="` + it.name + `">` + this.l10n.getTaskStateLabel(it) + `</option>`)
-                            .join("\n") + `
-                    </select>
-                </div>
-
-                <div>
-                    <label>Description</label>
-                    <textarea id="description" name="description"></textarea>
-                </div>
-
-                <div>
-                    <input type="submit" value="Create">
-                </div>
-            </form>`
+            <ul id="task-form">
+                <li>
+                    <form id="create-task-form">
+                        <input type="text" id="description" name="description" />
+                        <select id="state" name="state">` +
+                            TaskState.values()
+                                .map(state =>
+                                    `<option value="` + state.name + `">`
+                                    + this.l10n.getTaskStateLabel(state)
+                                    + `</option>`
+                                )
+                                .join("\n") + `
+                        </select>
+                        <input type="submit" id="submit-button" value="Add" />
+                    </form>
+                </li>
+            </ul>`
     }
 }

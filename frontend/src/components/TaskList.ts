@@ -45,7 +45,6 @@ export default class TaskList {
 
     getHtml(): string {
         return `
-            <h2>My tasks</h2>
             <ul id="task-list">
             ` + this.getTasksHtml([]) + `
             </ul>`
@@ -59,7 +58,7 @@ export default class TaskList {
 
             html += `
                 <li>
-                    <button class="delete" data-id="` + task.id + `">Delete</button>
+                    <button class="delete" data-id="` + task.id + `" title="Delete">x</button>
                     <div class="state">` + state + `</div>
                     <div>` + task.description + `</div>
                     <div class="clear"></div>

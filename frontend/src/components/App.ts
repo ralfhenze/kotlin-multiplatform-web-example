@@ -18,13 +18,10 @@ export default class App {
     getHtml(): string {
         return `
             <div>
-                <h1>Task List</h1>
-                <p>
-                    This is a very simple web application to demonstrate code sharing between
-                    backend and frontend with Kotlin Multiplatform.
-                </p>
+                <h1>My Tasks</h1>
                 ` + this.taskList.getHtml() + `
                 ` + this.taskForm.getHtml() + `
+                </ul>
             </div>`
     }
 }

@@ -6,7 +6,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(html|css)$/i,
+                test: /\.(html|css|woff2)$/i,
                 use: [
                     {
                         loader: 'file-loader',
