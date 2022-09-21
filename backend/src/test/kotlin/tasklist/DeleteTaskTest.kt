@@ -62,4 +62,15 @@ class DeleteTaskTest : BackendApiTest() {
         assertThat(response.headers.getFirst(HeaderNames.CONTENT_TYPE)).isEqualTo("text/plain")
         assertThat(response.body).isEqualTo("Task ID in path must be an integer, but was \"some-string\"")
     }
+
+    @Test
+    fun `returns 400 - Bad Request when task ID is smaller than 1`() {
+        val response = Unirest
+            .delete("$BACKEND_URL/api/task/0")
+            .asString()
+
+        assertThat(response.status).isEqualTo(400)
+        assertThat(response.headers.getFirst(HeaderNames.CONTENT_TYPE)).isEqualTo("text/plain")
+        assertThat(response.body).isEqualTo("The task ID must be >= 1, but was 0")
+    }
 }
