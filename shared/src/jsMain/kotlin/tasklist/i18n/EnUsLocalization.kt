@@ -5,9 +5,9 @@ package tasklist.i18n
 import tasklist.domain.TaskState
 import kotlin.js.JsExport
 
-class EnUsLocale {
+class EnUsLocalization : Localization {
 
-    fun getTaskStateLabel(taskState: TaskState): String {
+    override fun getTaskStateLabel(taskState: TaskState): String {
         return when (taskState) {
             TaskState.TODO -> "TODO"
             TaskState.IN_PROGRESS -> "IN PROGRESS"

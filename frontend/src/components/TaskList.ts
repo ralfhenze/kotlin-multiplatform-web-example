@@ -1,5 +1,5 @@
 import {tasklist} from "shared"
-import EnUsLocale = tasklist.i18n.EnUsLocale
+import Localization = tasklist.i18n.Localization
 import TaskSchema = tasklist.web.TaskSchema
 import TaskRepository from "../repositories/TaskRepository"
 
@@ -7,7 +7,7 @@ export default class TaskList {
 
     constructor(
         private taskRepo: TaskRepository,
-        private locale: EnUsLocale,
+        private l10n: Localization,
     ) {}
 
     init() {
@@ -55,7 +55,7 @@ export default class TaskList {
         let html = ""
 
         for (const task of tasks) {
-            const state = this.locale.getTaskStateLabel(task.state)
+            const state = this.l10n.getTaskStateLabel(task.state)
 
             html += `
                 <li>

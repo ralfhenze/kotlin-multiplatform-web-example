@@ -1,5 +1,5 @@
 import {tasklist} from "shared"
-import EnUsLocale = tasklist.i18n.EnUsLocale
+import Localization = tasklist.i18n.Localization
 import TaskState = tasklist.domain.TaskState
 import TaskValidator = tasklist.domain.TaskValidator
 import TaskList from "./TaskList"
@@ -11,7 +11,7 @@ export default class TaskForm {
         private taskList: TaskList,
         private taskRepo: TaskRepository,
         private validator: TaskValidator,
-        private locale: EnUsLocale,
+        private l10n: Localization,
     ) {}
 
     init() {
@@ -67,7 +67,7 @@ export default class TaskForm {
                     <label>State</label>
                     <select id="state" name="state">` +
                         TaskState.values()
-                            .map(it => `<option value="` + it.name + `">` + this.locale.getTaskStateLabel(it) + `</option>`)
+                            .map(it => `<option value="` + it.name + `">` + this.l10n.getTaskStateLabel(it) + `</option>`)
                             .join("\n") + `
                     </select>
                 </div>
