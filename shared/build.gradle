@@ -5,13 +5,6 @@ plugins {
 
 repositories {
     mavenCentral()
-    jcenter()
-    maven {
-        url 'https://dl.bintray.com/kotlin/kotlinx'
-    }
-    maven {
-        url 'https://dl.bintray.com/kotlin/kotlin-js-wrappers'
-    }
 }
 
 kotlin {
@@ -19,8 +12,8 @@ kotlin {
         all {
             compilations.all {
                 kotlinOptions {
-//                    allWarningsAsErrors = true
-                    freeCompilerArgs += '-Xopt-in=kotlin.js.ExperimentalJsExport'
+                    //allWarningsAsErrors = true
+                    freeCompilerArgs += '-opt-in=kotlin.js.ExperimentalJsExport'
                 }
             }
         }
@@ -77,14 +70,14 @@ node {
 }
 
 // FIXME: remove this as soon Kotlin Multiplatform adds "types" to package.json
-clean {
-    delete '../build/js/packages/shared/package.json'
-}
-
 assemble.doLast {
     copy {
         from 'package.json.template'
         into '../build/js/packages/shared'
         rename '(.+).template', '$1'
     }
+}
+
+clean {
+    delete '../build/js/packages/shared/package.json'
 }

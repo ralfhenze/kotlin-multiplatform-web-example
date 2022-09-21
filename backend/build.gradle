@@ -22,13 +22,6 @@ compileTestKotlin {
 
 repositories {
     mavenCentral()
-    jcenter()
-    maven {
-        url "https://dl.bintray.com/kotlin/kotlinx"
-    }
-    maven {
-        url "https://dl.bintray.com/kotlin/kotlin-js-wrappers"
-    }
 }
 
 test {
@@ -36,33 +29,33 @@ test {
 }
 
 dependencies {
-    implementation project(":shared")
+    implementation project(':shared')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
 
-    implementation "io.javalin:javalin:4.6.4"
-    implementation "io.javalin:javalin-openapi:4.6.4"
-    implementation "io.swagger.core.v3:swagger-annotations:2.2.2"
-    implementation "com.fasterxml.jackson.core:jackson-annotations:2.13.4"
-    implementation "ch.qos.logback:logback-classic:1.4.1"
+    implementation 'io.javalin:javalin:4.6.4'
+    implementation 'io.javalin:javalin-openapi:4.6.4'
+    implementation 'io.swagger.core.v3:swagger-annotations:2.2.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.4'
+    implementation 'ch.qos.logback:logback-classic:1.4.1'
 
-    testImplementation platform("org.junit:junit-bom:5.7.0")
-    testImplementation "org.junit.jupiter:junit-jupiter"
-    testImplementation "org.junit.jupiter:junit-jupiter-api"
-    testImplementation "org.junit.jupiter:junit-jupiter-params"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+    testImplementation platform('org.junit:junit-bom:5.7.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
-    testImplementation "com.konghq:unirest-java:3.13.11"
-    testImplementation "org.assertj:assertj-core:3.23.1"
-    testImplementation "net.javacrumbs.json-unit:json-unit-assertj:2.35.0"
-    testImplementation "io.mockk:mockk:1.10.3-jdk8"
+    testImplementation 'com.konghq:unirest-java:3.13.11'
+    testImplementation 'org.assertj:assertj-core:3.23.1'
+    testImplementation 'net.javacrumbs.json-unit:json-unit-assertj:2.35.0'
+    testImplementation 'io.mockk:mockk:1.10.3-jdk8'
 }
 
 shadowJar {
     // do not include these file types in the jar
-    exclude "**/*.example"
-    exclude "**/*.template"
-    exclude "**/.git*"
+    exclude '**/*.example'
+    exclude '**/*.template'
+    exclude '**/.git*'
 
     mergeServiceFiles()
 }
