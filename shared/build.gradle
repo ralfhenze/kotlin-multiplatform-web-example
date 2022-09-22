@@ -1,6 +1,5 @@
 plugins {
     id 'org.jetbrains.kotlin.multiplatform' version '1.7.10'
-    id 'com.github.node-gradle.node' version '2.2.4'
 }
 
 repositories {
@@ -63,21 +62,4 @@ kotlin {
             }
         }
     }
-}
-
-node {
-    download = true
-}
-
-// FIXME: remove this as soon Kotlin Multiplatform adds "types" to package.json
-assemble.doLast {
-    copy {
-        from 'package.json.template'
-        into '../build/js/packages/shared'
-        rename '(.+).template', '$1'
-    }
-}
-
-clean {
-    delete '../build/js/packages/shared/package.json'
 }
