@@ -15,6 +15,9 @@ class TaskController(
     private val taskRepository: TaskRepository,
 ) {
 
+    /**
+     * POST /api/task
+     */
     fun createTask() {
         val documentation = document()
             .operation {
@@ -40,6 +43,9 @@ class TaskController(
         })
     }
 
+    /**
+     * GET /api/task
+     */
     fun getAllTasks() {
         val documentation = document()
             .operation {
@@ -57,6 +63,9 @@ class TaskController(
         })
     }
 
+    /**
+     * DELETE /api/task/{taskId}
+     */
     fun deleteTask() {
         val documentation = document()
             .operation {

@@ -47,7 +47,7 @@ class CreateTaskTest : BackendApiTest() {
             .asString()
 
         assertThat(response.status).isEqualTo(400)
-        assertThat(response.body).isEqualTo("Please provide a description")
+        assertThat(response.body).isEqualTo("Please provide a description.")
     }
 
     @Test

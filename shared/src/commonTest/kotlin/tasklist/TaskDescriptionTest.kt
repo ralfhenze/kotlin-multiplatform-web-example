@@ -20,7 +20,7 @@ import kotlin.test.assertFailsWith
 class TaskDescriptionTest {
 
     @Test
-    fun a_valid_task_description_has_more_than_3_characters() {
+    fun a_valid_task_description_has_at_least_4_characters() {
         val description = TaskDescription("test")
 
         assertEquals("test", description.text)
@@ -37,6 +37,24 @@ class TaskDescriptionTest {
     fun a_description_with_less_than_4_characters_is_not_allowed() {
         assertFailsWith<Exception> {
             TaskDescription("aaa")
+        }
+    }
+
+    @Test
+    fun a_description_with_more_than_255_characters_is_not_allowed() {
+        assertFailsWith<Exception> {
+            TaskDescription("a".repeat(256))
+        }
+    }
+
+    @Test
+    fun a_description_with_line_breaks_is_not_allowed() {
+        assertFailsWith<Exception> {
+            TaskDescription(
+                """
+                    This is a description with line-breaks.
+                """
+            )
         }
     }
 }
