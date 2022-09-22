@@ -6,13 +6,15 @@ import net.javacrumbs.jsonunit.assertj.assertThatJson
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import tasklist.util.BackendApiTest
+import tasklist.util.BackendApiEndpointTest
 
 @DisplayName("POST /api/task")
-class CreateTaskTest : BackendApiTest() {
+class CreateTaskTest : BackendApiEndpointTest() {
 
     @Test
-    fun `returns 201 - Created and the created task with an ID`() {
+    fun `creates a new task and assigns an ID to it`() {
+
+        // When we attempt to create a new task with a valid description
         val response = Unirest
             .post("$BACKEND_URL/api/task")
             .body("""
@@ -23,8 +25,11 @@ class CreateTaskTest : BackendApiTest() {
             """)
             .asString()
 
+        // Then it gets created
         assertThat(response.status).isEqualTo(201)
         assertThat(response.headers.getFirst(CONTENT_TYPE)).isEqualTo("application/json")
+
+        // And an ID was assigned to it
         assertThatJson(response.body).isEqualTo("""
             {
                 "id": 1,
@@ -36,6 +41,8 @@ class CreateTaskTest : BackendApiTest() {
 
     @Test
     fun `returns 400 - Bad Request when description contains only whitespace characters`() {
+
+        // When we attempt to create a new task with a blank description
         val response = Unirest
             .post("$BACKEND_URL/api/task")
             .body("""
@@ -46,12 +53,15 @@ class CreateTaskTest : BackendApiTest() {
             """)
             .asString()
 
+        // Then we get an error
         assertThat(response.status).isEqualTo(400)
         assertThat(response.body).isEqualTo("Please provide a description.")
     }
 
     @Test
     fun `returns 400 - Bad Request when received no JSON-object of TaskSchema`() {
+
+        // When we attempt to create a new task, but don't provide the required data
         val response = Unirest
             .post("$BACKEND_URL/api/task")
             .body("""
@@ -61,6 +71,7 @@ class CreateTaskTest : BackendApiTest() {
             """)
             .asString()
 
+        // Then we get an error
         assertThat(response.status).isEqualTo(400)
     }
 }
